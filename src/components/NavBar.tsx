@@ -4,6 +4,7 @@ import ButtonComponent from "./generic/ButtonComponent";
 import Wrapper from "./handling/Wrapper";
 import Skeleton from "react-loading-skeleton";
 import AvatarComponent from "./generic/AvatarComponent";
+import SearchBar from "@/features/searching/component/query/SearchBar";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useAtom } from "jotai";
 import { imageHelper } from "../config/images";
@@ -145,6 +146,16 @@ export default function NavBar() {
           </ButtonComponent>
         </div>
       </div>
+      <Link
+        className="flex col-span-1 lg:col-start-5 lg:col-span-2 justify-end items-center mr-4"
+        onClick={() => {
+          setProgress(100);
+          setCurrentURLPath("discover");
+        }}
+        to="./discover"
+      >
+        <SearchBar />
+      </Link>
     </nav>
   );
 }
