@@ -15,7 +15,6 @@ export default function NavBar() {
   const [theme, setTheme] = useAtom(themeAtom);
   const [currentPath, setCurrentURLPath] = useAtom(currentURLPathAtom);
   const [mediaType, setMediaType] = useAtom(mediaTypeAtom);
-
   const [____, setProgress] = useAtom(loadingBarProgress); // eslint-disable-line @typescript-eslint/no-unused-vars
   return (
     <nav className="grid lg:grid-cols-6 grid-cols-4 w-11/12 max-w-[1920px] min-w-[300px] ">
@@ -124,9 +123,7 @@ export default function NavBar() {
           </Link>
         </Wrapper>
         <div
-          className={`h-1/2 rounded-lg my-auto w-full whitespace-nowrap flex items-center col-span-1 justify-center dark:bg-stone-700 bg-slate-200 gap-4 bg-opacity-70 z-10 ${
-            currentPath === "discover" && "opacity-0 z-0"
-          }`}
+          className={`ml-16 min-h-1/2 py-2 my-auto w-3/4 whitespace-nowrap flex items-center col-span-1 justify-center gap-4 rounded-lg px-2 dark:bg-stone-700 bg-slate-200 bg-opacity-70 shadow-inner z-10`}
         >
           <ButtonComponent
             className={`w-4 h-4 rounded-full grid place-items-center  ${
