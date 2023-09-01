@@ -1,0 +1,1 @@
+{"version":3,"file":"urls.js","sourceRoot":"","sources":["../../config/urls.ts"],"names":[],"mappings":";;;;;AAAA,oDAA4B;AAC5B,gBAAM,CAAC,MAAM,EAAE,CAAC;AAChB,kBAAe;IACX,IAAI,EAAE,OAAO,CAAC,GAAG,CAAC,IAAI,IAAI,IAAI;IAC9B,KAAK,EAAE,iBAAiB,OAAO,CAAC,GAAG,CAAC,UAAU,IAAI,OAAO,CAAC,GAAG,CAAC,cAAc,0DAA0D;CACzI,CAAC"}

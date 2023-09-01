@@ -4,7 +4,7 @@ import ButtonComponent from "./generic/ButtonComponent";
 import Wrapper from "./handling/Wrapper";
 import Skeleton from "react-loading-skeleton";
 import AvatarComponent from "./generic/AvatarComponent";
-import SearchBar from "@/features/searching/component/query/SearchBar";
+import SearchBar from "@/features/searching/components/query/SearchBar";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useAtom } from "jotai";
 import { imageHelper } from "../config/images";

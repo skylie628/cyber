@@ -1,5 +1,28 @@
 import { z } from "zod";
+import { MovieSchema, TVSchema } from "@/types/types";
 
+interface MovieFilterList {
+  sort_by: string;
+  year?: number;
+  with_genres?: string;
+}
+interface TVFilterList {
+  sort_by: string;
+  first_air_date_year?: number;
+  with_genres?: string;
+  with_status?: string;
+  with_type?: string;
+}
+const HomeMovieList = z.object({
+  page: z.number().optional(),
+  results: z.array(MovieSchema).optional(),
+  total_pages: z.number().optional(),
+});
+const HomeTVList = z.object({
+  page: z.number().optional(),
+  results: z.array(TVSchema).optional(),
+  total_pages: z.number().optional(),
+});
 const UserQueryResponse = z.object({
   _id: z.string({ required_error: "Id is not in response" }),
   email: z.string().email("Email is not in response"),
@@ -30,11 +53,19 @@ type MultipleShowsQueryResponseType = z.infer<
   typeof MultipleShowsQueryResponse
 >;
 type UserQueryResponseType = z.infer<typeof UserQueryResponse>;
+type HomeMovieListType = z.infer<typeof HomeMovieList>;
+type HomeTVListType = z.infer<typeof HomeTVList>;
 export {
+  type MovieFilterList,
+  type TVFilterList,
+  HomeMovieList,
+  HomeTVList,
   UserQueryResponse,
   type UserQueryResponseType,
   ShowQueryResponse,
   type ShowQueryResponseType,
   MultipleShowsQueryResponse,
   type MultipleShowsQueryResponseType,
+  type HomeMovieListType,
+  type HomeTVListType,
 };

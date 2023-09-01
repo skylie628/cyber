@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { MovieSchema, TVSchema } from "@/types/types";
 interface MovieFilterList {
   sort_by: string;
   year?: number;
@@ -11,4 +13,24 @@ interface TVFilterList {
   with_status?: string;
   with_type?: string;
 }
-export { type MovieFilterList, type TVFilterList };
+const FilteredMovieList = z.object({
+  page: z.number().optional(),
+  results: z.array(MovieSchema).optional(),
+  total_pages: z.number().optional(),
+});
+
+const FilteredTVList = z.object({
+  page: z.number().optional(),
+  results: z.array(TVSchema).optional(),
+  total_pages: z.number().optional(),
+});
+type FilteredMovieListType = z.infer<typeof FilteredMovieList>;
+type FilteredTVListType = z.infer<typeof FilteredTVList>;
+export {
+  type MovieFilterList,
+  type TVFilterList,
+  FilteredMovieList,
+  FilteredTVList,
+  type FilteredMovieListType,
+  type FilteredTVListType,
+};

@@ -10,6 +10,7 @@ const getMovieGenresQuery = () => {
   };
 };
 const getTVGenres = async () => {
+  console.log(import.meta.env.VITE_TMDB_API_KEY);
   return GenreListSchema.parse((await apiClient.get("/genre/tv/list")).data);
 };
 const getTVGenresQuery = () => {

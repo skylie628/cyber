@@ -38,7 +38,7 @@ export const iconHelper: Record<string, (className: string) => JSX.Element> = {
   update: (className: string) => <MdSystemUpdateAlt className={className} />,
   reload: (className: string) => <AiOutlineReload className={className} />,
   signOut: (className: string) => <FaSignOutAlt className={className} />,
-  next: (className: string) => <MdOutlineNavigateNext className={className} />,
+  next: (className?: string) => <MdOutlineNavigateNext className={className} />,
   before: (className: string) => (
     <MdOutlineNavigateBefore className={className} />
   ),
