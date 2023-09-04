@@ -1,10 +1,10 @@
 import LazyLoadImageComponent from "@/components/handling/LazyLoadImageComponent";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSectionBackdropItemsStore } from "../../stores";
 import { MovieType, TVType } from "@/types/types";
-import { mediaTypeConfig } from "@/features/profile/queries";
+import { mediaTypeConfig } from "@/features/searching/queries";
 import { imageHelper } from "@/config/images";
-
+import { useLoaderData } from "react-router-dom";
 const SectionBackdrop = ({
   mediaType,
   section,
@@ -18,6 +18,7 @@ const SectionBackdrop = ({
   const sectionBackdropItem = sectionBackdropItemStore.getSectionBackdropItem(
     section!
   );
+  console.log("gen la", useLoaderData());
   return (
     <div
       className={`absolute  max-h-[50rem] lg:aspect-[18/9] hidden lg:visible  top-0 w-full lg:flex z-0 items-top overflow-hidden ${styles?.wrapper}`}
@@ -27,7 +28,7 @@ const SectionBackdrop = ({
         styles={{
           size: sectionBackdropItem?.backdrop_path ? "original" : undefined,
           image:
-            "ml-[25%] sm:object-left object-scale-down lg:h-full aspect-[18/9] mix-blend-overlay   lg:rounded-l-full overflow-hidden dark:rounded-none",
+            "ml-[25%] sm:object-left object-scale-down lg:h-full aspect-[18/9] mix-blend-overlay  lg:rounded-l-full overflow-hidden dark:rounded-none",
         }}
       />
       <div className="ml-[25%] absolute  xs:bg-gradient-radial-top-right  ring-2 ring-stone-800 dark:ring-transparent from-transparent via-stone-900 to-stone-900 h-full aspect-[18/9] rounded-l-full dark:rounded-l-none" />
@@ -58,11 +59,13 @@ const SectionBackdrop = ({
           </div>
 
           <div className="text-base tracking-[0.2rem] font-bold text-stone-100 flex items-center py-2 dark:text-stone-100">
-            {new Date(
-              mediaType === "movie"
-                ? (sectionBackdropItem as MovieType)?.release_date!
-                : (sectionBackdropItem as TVType)?.first_air_date!
-            ).getFullYear()}
+            <time>
+              {new Date(
+                mediaType === "movie"
+                  ? (sectionBackdropItem as MovieType)?.release_date!
+                  : (sectionBackdropItem as TVType)?.first_air_date!
+              ).getFullYear()}
+            </time>
             <div className="ml-8 flex justify-start gap-4 flex-wrap text-lg py-0">
               {sectionBackdropItem?.genre_ids?.map((genreId) => {
                 return (
@@ -78,7 +81,6 @@ const SectionBackdrop = ({
               })}
             </div>
           </div>
-          <div></div>
         </div>
 
         <div className="w-full xs:pl-0 md:pl-4 lg:pl-16 flex flex-col lg:pr-4 overflow-y-scroll h-[30rem] scrollbar-hide ">

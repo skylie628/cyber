@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUserQuery } from "../queries";
+import { getUserQuery } from "../../searching/queries";
 import { UserQueryResponseType } from "../type";
 
 const useGetUserQuery = () => {

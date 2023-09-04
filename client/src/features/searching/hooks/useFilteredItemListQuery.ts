@@ -2,7 +2,7 @@ import { currentURLPathAtom, mediaTypeAtom } from "@/App";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { MovieFilterList, TVFilterList } from "../../profile/type";
-import { getFilteredItemListQuery } from "../../profile/queries";
+import { getFilteredItemListQuery } from "../queries";
 export const useFilteredItemListQuery = (
   paramList: MovieFilterList | TVFilterList | string,
   period?: string,

@@ -1,7 +1,10 @@
 import LoadingBar from "react-top-loading-bar";
 import { useState } from "react";
+import { appLoader } from "./routes/router";
 import { Toaster } from "react-hot-toast";
+import { search_queries } from "./features/searching";
 import { onWindowMatch } from "./utils/onWindowMatch";
+import { useLoaderData } from "react-router-dom";
 import ButtonComponent from "./components/generic/ButtonComponent";
 import Header from "./components/Header";
 import { atom, useAtom } from "jotai";
@@ -21,6 +24,7 @@ function App() {
   const [animationParentRef] = useAutoAnimate();
   const { element } = onWindowMatch();
   const [isVisible, setIsVisible] = useState(false);
+  const initialData = useLoaderData() as Awaited<ReturnType<typeof appLoader>>;
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -42,6 +46,21 @@ function App() {
         break;
     }
   }, [theme]);
+
+  useEffect(() => {
+    search_queries.mediaTypeConfig.movie.discover.paramList = {
+      ...search_queries.mediaTypeConfig.movie.discover.paramList,
+      with_genres: new Map(
+        initialData[0].genres.map(({ id, name }) => [id, name])
+      ),
+    };
+    search_queries.mediaTypeConfig.tv.discover.paramList = {
+      ...search_queries.mediaTypeConfig.tv.discover.paramList,
+      with_genres: new Map(
+        initialData[1].genres.map(({ id, name }) => [id, name])
+      ),
+    };
+  }, []);
   return (
     <div className="bg-slate-200 dark:bg-stone-900 min-h-screen min-w-[300px] w-screen flex flex-col z-0 ">
       <LoadingBar
