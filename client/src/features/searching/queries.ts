@@ -155,7 +155,6 @@ const getFilteredItemList = async (
   period?: string,
   page: number = 1
 ) => {
-  console.log("paramList la" + paramList);
   const response = await (queryType === "discover"
     ? mediaTypeConfig[`${mediaType}`].discover.fetcher(
         paramList as MovieFilterList | TVFilterList,

@@ -10,6 +10,9 @@ interface UserDocument extends mongoose.Document {
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
+interface UserDocument extends mongoose.Document {
+  comparePassword(candidatePassword: string): Promise<boolean>;
+}
 const UserMongoSchema = new mongoose.Schema(
   {
     email: { type: String, require: true, unique: true },

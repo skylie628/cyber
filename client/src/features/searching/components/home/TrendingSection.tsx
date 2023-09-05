@@ -23,7 +23,7 @@ export default function TrendingSection() {
     }
   }, [data]);
   return (
-    <div className="relative max-h-[50rem] xl:aspect-[15/5] lg:h-auto xs:h-[33rem] w-full flex justify-center items-center z-0 bg-slate-50 dark:bg-stone-900 py-4 rounded-lg shadow-lg">
+    <section className="relative max-h-[50rem] xl:aspect-[15/5] lg:h-auto xs:h-[33rem] w-full flex justify-center items-center z-0 bg-slate-50 dark:bg-stone-900 py-4 rounded-lg shadow-lg">
       <div className="w-11/12 flex flex-col z-10">
         <div className="max-h-[50rem] xl:aspect-[22/14] lg:aspect-[12/9] z-20 w-full lg:h-auto xs:h-[33rem] font-poppins text-xl font-black tracking-[0.3rem] text-slate-900 dark:text-yellow-400 uppercase">
           <h2 className="flex py-2 border-b-2 border-slate-300 dark:border-yellow-600">
@@ -85,6 +85,6 @@ export default function TrendingSection() {
           mediaType={mediaType}
         />
       ) : null}
-    </div>
+    </section>
   );
 }
