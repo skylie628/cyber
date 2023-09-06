@@ -10,9 +10,9 @@ dotenv_1.default.config();
 const private_key = process.env.PRIVATE_KEY;
 const public_key = process.env.PUBLIC_KEY;
 const signJWT = (object, options) => {
+    console.log("private_key", private_key);
     return jsonwebtoken_1.default.sign(object, private_key, {
         ...(options && options),
-        algorithm: 'RS256'
     });
 };
 exports.signJWT = signJWT;
@@ -22,14 +22,14 @@ const verifyJWT = (token) => {
         return {
             valid: true,
             expired: false,
-            decoded
+            decoded,
         };
     }
     catch (e) {
         return {
             valid: false,
-            expired: e.message === 'jwt expired',
-            decoded: null
+            expired: e.message === "jwt expired",
+            decoded: null,
         };
     }
 };

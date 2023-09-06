@@ -68,4 +68,4 @@ const updateUser = async (data, rs) => {
     }
 };
 exports.updateUser = updateUser;
-//# sourceMappingURL=user.sevice.js.map
+//# sourceMappingURL=user.service.js.map

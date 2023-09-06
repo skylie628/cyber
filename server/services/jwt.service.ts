@@ -1,13 +1,12 @@
-const { verifyJWT } = require("../dist/utils/jwt.utils");
-
+import { verifyJWT } from "../utils/jwt.utils";
 const reIssueAccessToken = async ({
   refreshToken,
 }: {
   refreshToken: string;
 }) => {
-  const { decode } = verifyJWT(refreshToken);
-  if (!decode) {
+  const { decoded } = verifyJWT(refreshToken);
+  if (!decoded) {
     return false;
   }
 };
-export default reIssueAccessToken;
+export { reIssueAccessToken };

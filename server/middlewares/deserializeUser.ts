@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import reIssueAccessToken from "../services/jwt.service.js";
+import { reIssueAccessToken } from "../services/jwt.service.js";
 import { verifyJWT } from "../utils/jwt.utils.js";
 import dotenv from "dotenv";
 dotenv.config();
-const deserializeUserFromJWT = async (
+const deserializeUser = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -50,4 +50,4 @@ const deserializeUserFromJWT = async (
   return res.status(404).send("Invalid access token or refresh token");
 };
 
-export default deserializeUserFromJWT;
+export default deserializeUser;

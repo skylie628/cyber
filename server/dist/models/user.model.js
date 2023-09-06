@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const UserMongoSchema = new mongoose_1.default.Schema({
@@ -13,9 +14,9 @@ const UserMongoSchema = new mongoose_1.default.Schema({
 }, {
     timestamps: true,
 });
-UserMongoSchema.pre('save', async function (next) {
+UserMongoSchema.pre("save", async function (next) {
     let user = this;
-    if (user.isModified('password'))
+    if (user.isModified("password"))
         return next();
     const salt = await bcrypt_1.default.genSalt(10);
     const hash = await bcrypt_1.default.hashSync(user.password, salt);
@@ -24,6 +25,10 @@ UserMongoSchema.pre('save', async function (next) {
 });
 UserMongoSchema.methods.comparePassword = async function (candidatePassword) {
     const user = this;
-    return await bcrypt_1.default.compare(candidatePassword, user.password).catch(e => { return false; });
+    return await bcrypt_1.default.compare(candidatePassword, user.password).catch((e) => {
+        return false;
+    });
 };
+const UserModel = mongoose_1.default.model("User", UserMongoSchema);
+exports.UserModel = UserModel;
 //# sourceMappingURL=user.model.js.map
