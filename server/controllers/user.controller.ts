@@ -26,6 +26,7 @@ const signUpHandler = async (
   res: Response
 ) => {
   try {
+    console.log("body la2", req.body);
     const user = await UserModel.findOne({ email: req.body.email });
     if (user)
       return res

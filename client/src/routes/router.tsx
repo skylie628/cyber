@@ -1,5 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../pages/HomePage";
+import { Suspense } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import LoadingPage from "@/pages/LoadingPage";
 import { getMovieGenresQuery, getTVGenresQuery } from "../queries";
 import App from "../App";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -33,6 +36,16 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/profile",
+        element: (
+          <Suspense fallback={<LoadingPage />}>
+            <ProtectedRoute>
+              <div>aaaaaaaaaa</div>
+            </ProtectedRoute>
+          </Suspense>
+        ),
       },
     ],
   },

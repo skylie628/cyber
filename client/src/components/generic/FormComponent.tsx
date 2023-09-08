@@ -7,7 +7,7 @@ import { iconHelper } from "@/config/icons";
 interface FormComponentProps {
   schema: AnyZodObject;
   // submitFn: (...args: any[]) => any;
-  submitFn: Function;
+  submitFn: (...args: any[]) => any;
   options: Array<{
     extras?: { [key: string]: string };
     name: string;

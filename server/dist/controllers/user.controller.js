@@ -10,6 +10,7 @@ const jwt_utils_js_1 = require("../utils/jwt.utils.js");
 const lodash_1 = __importDefault(require("lodash"));
 const signUpHandler = async (req, res) => {
     try {
+        console.log("body la2", req.body);
         const user = await user_model_js_1.UserModel.findOne({ email: req.body.email });
         if (user)
             return res

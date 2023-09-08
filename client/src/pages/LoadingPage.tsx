@@ -1,0 +1,24 @@
+import LoaderSpinnerComponent from "@/components/generic/LoaderSpinnerComponent";
+import { useMediaQueries } from "@/hooks/useMediaQueries";
+const LoadingPage = () => {
+  const { isMd } = useMediaQueries();
+  return (
+    <>
+      {isMd ? (
+        <div className="bg-stone-900 dark:bg-slate-200 min-h-screen flex flex-col justify-center items-center w-full">
+          <div>
+            <LoaderSpinnerComponent />
+          </div>
+        </div>
+      ) : (
+        <div className="bg-stone-900 dark:bg-slate-200 min-h-screen flex flex-col justify-start items-center w-full ">
+          <div className="mt-20">
+            <LoaderSpinnerComponent />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default LoadingPage;

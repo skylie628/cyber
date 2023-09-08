@@ -9,6 +9,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const lodash_1 = __importDefault(require("lodash"));
 const createUser = async (input) => {
     try {
+        console.log(input);
         const user = await user_model_js_1.UserModel.create(input);
         return lodash_1.default.omit(user.toJSON(), "password");
     }
@@ -28,6 +29,7 @@ const validatePassword = async ({ _id, email, password, }) => {
     if (!user)
         return false;
     const isValid = await user.comparePassword(password);
+    console.log(user, "  ", isValid);
     if (!isValid)
         return false;
     return lodash_1.default.omit(user.toJSON(), "password");
@@ -52,7 +54,7 @@ const updateUser = async (data, rs) => {
     if (!user)
         return rs.status(400).send("User not found.");
     if (data.query.type === "password") {
-        const isValid = await bcrypt_1.default.compare(data.body.confirmPassword, user.password);
+        const isValid = await bcrypt_1.default.compare(data.body.passwordConfirmation, user.password);
         if (!isValid) {
             return rs.status(401).send("Wrong confirmation password.");
         }

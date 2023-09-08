@@ -6,14 +6,14 @@ const UserSchema = z.object({
       password: z
         .string({ required_error: "password is required" })
         .min(6, "password is too short- should be 6 character minimum"),
-      confirmPassword: z.string({
+      passwordConfirmation: z.string({
         required_error: "confirm password us required",
       }),
       email: z
         .string({ required_error: "Email is required" })
         .email("Not a valid email"),
     })
-    .refine((data) => data.password === data.confirmPassword, {
+    .refine((data) => data.password === data.passwordConfirmation, {
       message: "Passwords do not match",
       path: ["passwordConfirmation"],
     }),
@@ -46,11 +46,11 @@ const ConfirmPasswordSchema = z.object({
       newPassword: z
         .string({ required_error: "Password is required" })
         .min(6, "Password is too short - should be 6 characters minimum"),
-      confirmPassword: z.string({
+      passwordConfirmation: z.string({
         required_error: "Confirmation password is required",
       }),
     })
-    .refine((data) => data.newPassword !== data.confirmPassword, {
+    .refine((data) => data.newPassword !== data.passwordConfirmation, {
       message: "Choose a different password",
       path: ["passwordCreation"],
     }),

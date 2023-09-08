@@ -17,6 +17,7 @@ const createUser = async (
   >
 ) => {
   try {
+    console.log(input);
     const user = await UserModel.create(input);
     return pgk.omit(user.toJSON(), "password");
   } catch (e: any) {
@@ -40,6 +41,7 @@ const validatePassword = async ({
   }
   if (!user) return false;
   const isValid = await user.comparePassword(password);
+  console.log(user, "  ", isValid);
   if (!isValid) return false;
   return pgk.omit(user.toJSON(), "password");
 };
@@ -72,7 +74,7 @@ const updateUser = async (
   if (!user) return rs.status(400).send("User not found.");
   if (data.query.type === "password") {
     const isValid = await bcrypt.compare(
-      (data.body as ConfirmPasswordType["body"]).confirmPassword,
+      (data.body as ConfirmPasswordType["body"]).passwordConfirmation,
       user.password
     );
     if (!isValid) {
