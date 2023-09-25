@@ -1,7 +1,9 @@
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
-import ErrorComponent from "../ErrorComponent";
+import React from "react";
+import ErrorComponent from "./ErrorComponent";
 import { ComponentType, Suspense } from "react";
 import SkeletonComponent from "./SkeletonComponent";
+
 const Wrapper = ({
   children,
   errorComponent,
@@ -26,4 +28,5 @@ const Wrapper = ({
     </ErrorBoundary>
   );
 };
+
 export default Wrapper;

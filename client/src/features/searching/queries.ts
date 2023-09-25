@@ -24,6 +24,7 @@ const getUser = async () => {
 };
 
 const getUserQuery = () => {
+  console.log("getUserQuery");
   return {
     queryKey: ["profile"],
     queryFn: getUser,

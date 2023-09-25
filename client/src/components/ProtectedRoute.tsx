@@ -7,12 +7,13 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+  console.log("before");
   const { data } = useGetUserQuery();
+  console.log(data);
   return data ? children : null;
 };
 export default (props: ProtectedRouteProps) => (
   <Wrapper suspenseComponent={<LoadingPage />} errorComponent={AuthPage}>
     <ProtectedRoute {...props} />
-    <AuthPage></AuthPage>
   </Wrapper>
 );

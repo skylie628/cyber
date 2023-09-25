@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../pages/HomePage";
+import ProfilePage from "@/pages/ProfilePage";
 import { Suspense } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import LoadingPage from "@/pages/LoadingPage";
@@ -42,7 +43,7 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingPage />}>
             <ProtectedRoute>
-              <div>aaaaaaaaaa</div>
+              <ProfilePage />
             </ProtectedRoute>
           </Suspense>
         ),

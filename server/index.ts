@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose, { mongo } from "mongoose";
 import urls from "./config/urls.js";
 import user from "./routes/user.js";
+import show from "./routes/show.js";
 import cookieParser from "cookie-parser";
 import deserializeUserFromJWT from "./middlewares/deserializeUser.js";
 dotenv.config();
@@ -37,3 +38,4 @@ app.use(cookieParser());
 app.use(deserializeUserFromJWT);
 // ROUTES
 app.use("/api/v1/user", user);
+app.use("/api/v1/show", show);

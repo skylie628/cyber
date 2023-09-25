@@ -9,9 +9,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Wrapper from "@/components/handling/Wrapper";
 
 const SignUpContainer = ({
-  setShouldSignUpDisplay,
+  setShouldSignInDisplay,
 }: {
-  setShouldSignUpDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  setShouldSignInDisplay: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const signUpMutation = useSignUpMutation();
   const queryClient = useQueryClient();
@@ -79,7 +79,7 @@ const SignUpContainer = ({
         <h2>Create a new account?</h2>
         <ButtonComponent
           className="leading-6 text-green-700 hover:text-green-600 text-lg"
-          onClick={() => setShouldSignUpDisplay(false)}
+          onClick={() => setShouldSignInDisplay(false)}
         >
           Sign In
         </ButtonComponent>
@@ -95,11 +95,11 @@ const SignUpContainer = ({
 };
 
 export default ({
-  setShouldSignUpDisplay,
+  setShouldSignInDisplay,
 }: {
-  setShouldSignUpDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  setShouldSignInDisplay: React.Dispatch<React.SetStateAction<boolean>>;
 }) => (
   <Wrapper>
-    <SignUpContainer setShouldSignUpDisplay={setShouldSignUpDisplay} />
+    <SignUpContainer setShouldSignInDisplay={setShouldSignInDisplay} />
   </Wrapper>
 );

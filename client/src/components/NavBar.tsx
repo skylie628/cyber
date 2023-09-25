@@ -1,22 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  currentURLPathAtom,
+  loadingBarProgress,
+  mediaTypeAtom,
+  shouldDropdownDisplayAtom,
+} from "@/App";
+import { useAtom } from "jotai";
+import SearchBar from "@/features/searching/components/query/SearchBar";
 import ButtonComponent from "./generic/ButtonComponent";
+import { useMediaQueries } from "@/hooks/useMediaQueries";
+import AvatarComponent from "./generic/AvatarComponent";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import Wrapper from "./handling/Wrapper";
 import Skeleton from "react-loading-skeleton";
-import AvatarComponent from "./generic/AvatarComponent";
-import SearchBar from "@/features/searching/components/query/SearchBar";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { useAtom } from "jotai";
-import { imageHelper } from "../config/images";
-import { iconHelper } from "../config/icons";
-import { themeAtom } from "../App";
-import { currentURLPathAtom, loadingBarProgress, mediaTypeAtom } from "../App";
-export default function NavBar() {
-  const [theme, setTheme] = useAtom(themeAtom);
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { themeAtom } from "@/App";
+import { iconHelper } from "@/config/icons";
+import { imageHelper } from "@/config/images";
+
+const NavBar = () => {
   const [currentPath, setCurrentURLPath] = useAtom(currentURLPathAtom);
   const [mediaType, setMediaType] = useAtom(mediaTypeAtom);
-  const [____, setProgress] = useAtom(loadingBarProgress); // eslint-disable-line @typescript-eslint/no-unused-vars
-  return (
+  const [shouldDropdownDisplay, setShouldDropdownDisplay] = useAtom(
+    shouldDropdownDisplayAtom
+  );
+  const [progress, setProgress] = useAtom(loadingBarProgress);
+  const [theme, setTheme] = useAtom(themeAtom);
+
+  const [animationParentRef] = useAutoAnimate();
+
+  const { isMd } = useMediaQueries();
+
+  return isMd ? (
     <nav className="grid lg:grid-cols-6 grid-cols-4 w-11/12 max-w-[1920px] min-w-[300px] ">
       <Link
         className="flex col-span-1 lg:col-span-2 justify-start items-center font-poppins font-extrabold text-3xl gap-4"
@@ -32,7 +48,7 @@ export default function NavBar() {
           className=" overflow-hidden object-full h-[3.2rem] rounded-full min-w-[3.2rem]"
         />
         <span className="dark:text-yellow-400 text-stone-900 font-extrabold tracking-wider text-2xl font-serif">
-          Muvize
+          Fir Media
         </span>
       </Link>
       <div className="grid grid-cols-4 lg:col-start-3 col-span-2 place-items-center">
@@ -122,24 +138,23 @@ export default function NavBar() {
             />
           </Link>
         </Wrapper>
-        <div
-          className={`ml-16 min-h-1/2 py-2 my-auto w-3/4 whitespace-nowrap flex items-center col-span-1 justify-center gap-4 rounded-lg px-2 dark:bg-stone-700 bg-slate-200 bg-opacity-70 shadow-inner z-10`}
-        >
+        <div className="ml-16 min-h-1/2 py-2 my-auto w-3/4 whitespace-nowrap flex items-center col-span-1 justify-center gap-4 rounded-lg px-2 dark:bg-stone-700 bg-slate-200 bg-opacity-70 shadow-inner z-10">
           <ButtonComponent
-            className={`w-4 h-4 rounded-full grid place-items-center  ${
-              theme === "light" ? "text-yellow-600" : "text-stone-800 "
+            className={`w-6 h-6 rounded-full flex justify-center items-center ${
+              theme === "light" ? "text-yellow-500" : "text-stone-300"
             }`}
             onClick={() => setTheme("light")}
           >
-            {iconHelper.light("text-lg")}
+            {iconHelper.light("text-3xl")}
           </ButtonComponent>
+
           <ButtonComponent
-            className={`w-4 h-4 rounded-full grid place-items-center   ${
-              theme === "dark" ? "text-yellow-600" : "text-stone-800"
+            className={`w-6 h-6  rounded-full  grid place-items-center ${
+              theme === "dark" ? "text-yellow-500" : "text-stone-300"
             }`}
             onClick={() => setTheme("dark")}
           >
-            {iconHelper.dark("text-base")}
+            {iconHelper.dark("text-xl")}
           </ButtonComponent>
         </div>
       </div>
@@ -149,10 +164,84 @@ export default function NavBar() {
           setProgress(100);
           setCurrentURLPath("discover");
         }}
-        to="./discover"
+        to="/discover"
       >
         <SearchBar />
       </Link>
     </nav>
+  ) : (
+    <nav className="grid grid-cols-5 w-11/12 min-w-[300px] ">
+      <Link
+        ref={animationParentRef}
+        className={`flex justify-center items-center gap-2 ${
+          currentPath === "home" ? "col-span-2" : "col-span-1"
+        }`}
+        to="/"
+        onClick={() => {
+          setProgress(100);
+          setCurrentURLPath("home");
+          setMediaType("movie");
+        }}
+      >
+        <img
+          src={imageHelper.logo_better}
+          className=" overflow-hidden object-full h-[4rem] w-[4rem]"
+        />
+        {currentPath === "home" && (
+          <span className="text-yellow-500 font-extrabold tracking-wider uppercase font-poppins text-[17px]">
+            Fir Media
+          </span>
+        )}
+      </Link>
+
+      <div
+        className={`h-1/2 rounded-lg my-auto w-full whitespace-nowrap flex items-center col-span-1 justify-center dark:bg-stone-700 bg-slate-200 gap-4 bg-opacity-70 z-10 ${
+          currentPath === "discover" && "opacity-0 z-0"
+        }`}
+      >
+        <ButtonComponent
+          className={`w-4 h-4 rounded-full grid place-items-center  ${
+            theme === "light" ? "text-yellow-600" : "text-stone-800 "
+          }`}
+          onClick={() => setTheme("light")}
+        >
+          {iconHelper.light("text-lg")}
+        </ButtonComponent>
+
+        <ButtonComponent
+          className={`w-4 h-4 rounded-full grid place-items-center   ${
+            theme === "dark" ? "text-yellow-600" : "text-stone-800"
+          }`}
+          onClick={() => setTheme("dark")}
+        >
+          {iconHelper.dark("text-base")}
+        </ButtonComponent>
+      </div>
+      <Link
+        className={`flex justify-center items-center ${
+          currentPath === "home" ? "col-span-1" : "col-span-2"
+        }`}
+        onClick={() => {
+          setProgress(100);
+          setCurrentURLPath("discover");
+        }}
+        to="/discover"
+      >
+        <SearchBar />
+      </Link>
+
+      <ButtonComponent
+        onClick={() => setShouldDropdownDisplay((prev) => !prev)}
+        className="flex justify-end items-center"
+      >
+        {iconHelper.menu(
+          `h-6 w-6 mr-4 text-yellow-500 ${
+            shouldDropdownDisplay && "rotate-90"
+          } transition-transform duration-300`
+        )}
+      </ButtonComponent>
+    </nav>
   );
-}
+};
+
+export default NavBar;

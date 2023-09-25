@@ -3,8 +3,9 @@ import { getUserQuery } from "../../searching/queries";
 import { UserQueryResponseType } from "../type";
 
 const useGetUserQuery = () => {
+  console.log("useGetUserQuery", getUserQuery());
   const { data, error, isLoading } = useQuery<UserQueryResponseType>({
-    ...getUserQuery,
+    ...getUserQuery(),
   });
   return { data, error, isLoading };
 };
